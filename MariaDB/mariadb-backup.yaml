@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+    mariadb-backup:
+        image: databack/mysql-backup:latest
+        container_name: mariadb-backup
+        volumes:
+            - /opt/mariadb/backup:/db
+        environment:
+            - DB_SERVER=${MARIADB_HOST}
+            - DB_PORT=${MARIADB_PORT}
+            - DB_USER=root
+            - DB_PASS=${MARIADB_ROOT_PASSWORD}
+            - DB_DUMP_CRON= 0 4 * * * 
+        restart: always
+        networks:
+            - backend

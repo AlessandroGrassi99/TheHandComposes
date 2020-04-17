@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    mariadb:
+        image: rabbitmq:latest
+        container_name: rabbitmq
+        ports:
+            - "${RABBITMQ_PORT}:5671"
+        volumes:
+            - /etc/the_hand/rabbitmq:/etc/rabbitmq
+        restart: always
+        networks:
+            - web_rabbitmq
+            - telegram_rabbitmq
+
+networks:
+    web_rabbitmq:
+        external: true
+    telegram_rabbitmq:
+        external: true
