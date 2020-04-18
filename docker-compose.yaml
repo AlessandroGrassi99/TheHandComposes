@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+    mariadb:
+        image: mariadb:latest
+        container_name: mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+        ports:
+            - "${MARIADB_PORT}:3306"
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /opt/mariadb/data:/var/lib/mysql
+        restart: always
+        networks:
+            - mariadb_backup
+            - telegram_mariadb
+
+    mariadb-backup:
+        image: databack/mysql-backup:latest
+        container_name: mariadb-backup
+        volumes:
+            - /opt/mariadb/backup:/db
+        environment:
+            - DB_SERVER=${MARIADB_HOST}
+            - DB_PORT=${MARIADB_PORT}
+            - DB_USER=root
+            - DB_PASS=${MARIADB_ROOT_PASSWORD}
+            - DB_DUMP_CRON= 0 4 * * * 
+        restart: always
+        networks:
+            - mariadb_backup
+
+    rabbitmq:
+        image: rabbitmq:latest
+        container_name: rabbitmq
+        ports:
+            - "${RABBITMQ_PORT}:5671" # rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
+        volumes:
+            - /etc/the_hand/rabbitmq:/etc/rabbitmq
+        restart: always
+        networks:
+            - web_rabbitmq
+            - telegram_rabbitmq
+
+
+networks:
+    mariadb_backup:
+        internal: true
+    mariadb_telegram: 
+        internal: true
+    web_rabbitmq: 
+        internal: true
+    mariadb_internet:
+        internal: false
+    rabbitmq_internet:
+        internal: false
