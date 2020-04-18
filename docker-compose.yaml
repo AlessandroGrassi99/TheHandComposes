@@ -49,5 +49,7 @@ networks:
         internal: true
     telegram_mariadb: 
         internal: true
+    telegram_rabbitmq:
+        internal: true
     web_rabbitmq: 
         internal: true
