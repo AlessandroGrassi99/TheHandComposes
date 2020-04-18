@@ -1,11 +1,11 @@
 version: '2'
 
 services:
-    mariadb:
+    rabbitmq:
         image: rabbitmq:latest
         container_name: rabbitmq
         ports:
-            - "${RABBITMQ_PORT}:5671"
+            - "${RABBITMQ_PORT}:5671" # rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
         volumes:
             - /etc/the_hand/rabbitmq:/etc/rabbitmq
         restart: always
