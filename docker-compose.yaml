@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
     mariadb:
@@ -22,7 +22,7 @@ services:
         volumes:
             - /opt/mariadb/backup:/db
         environment:
-            - DB_SERVER=${MARIADB_HOST}
+            - DB_SERVER=${MARIADB_BACKUP_HOST}
             - DB_PORT=${MARIADB_PORT}
             - DB_USER=root
             - DB_PASS=${MARIADB_ROOT_PASSWORD}
@@ -47,11 +47,7 @@ services:
 networks:
     mariadb_backup:
         internal: true
-    mariadb_telegram: 
+    telegram_mariadb: 
         internal: true
     web_rabbitmq: 
         internal: true
-    mariadb_internet:
-        internal: false
-    rabbitmq_internet:
-        internal: false
