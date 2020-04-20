@@ -11,6 +11,7 @@ services:
         volumes:
             - /etc/localtime:/etc/localtime:ro
             - /opt/mariadb/data:/var/lib/mysql
+            - /etc/thehand/mariadb:/etc/mysql
         restart: always
         networks:
             - mariadb_backup
@@ -37,7 +38,7 @@ services:
         ports:
             - "${RABBITMQ_PORT}:5671" # rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
         volumes:
-            - /etc/the_hand/rabbitmq:/etc/rabbitmq
+            - /etc/thehand/rabbitmq:/etc/rabbitmq
         restart: always
         networks:
             - web_rabbitmq
