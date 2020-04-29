@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+    thehand:
+        image: alessandrograssi/thehand:latest
+        container_name: {CONTAINER_NAME}
+        hostname: thehand-container
+        volumes:
+            - /etc/thehand/{CONTAINER_NAME}:/etc/thehand
+        restart: always
+        networks:
+            - telegram_mariadb
+            - telegram_rabbitmq
+            - telegram_web
+
+networks:
+    telegram_mariadb:
+        external: true
+    telegram_rabbitmq:
+        external: true
+    telegram_web:
+        external: true
