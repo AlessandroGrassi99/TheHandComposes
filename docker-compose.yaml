@@ -4,6 +4,7 @@ services:
     mariadb:
         image: mariadb:latest
         container_name: mariadb
+        hostname: mariadb-container
         environment:
             - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
         ports:
@@ -20,6 +21,7 @@ services:
     mariadb-backup:
         image: databack/mysql-backup:latest
         container_name: mariadb-backup
+        hostname: mariadb-backup-container
         volumes:
             - /opt/mariadb/backup:/db
         environment:
@@ -35,6 +37,7 @@ services:
     rabbitmq:
         image: rabbitmq:latest
         container_name: rabbitmq
+        hostname: rabbitmq-container
         ports:
             - "${RABBITMQ_PORT}:5671" # rabbitmq-plugins enable rabbitmq_auth_mechanism_ssl
         volumes:
