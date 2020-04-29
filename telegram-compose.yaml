@@ -6,7 +6,7 @@ services:
         container_name: {CONTAINER_NAME}
         hostname: thehand-container
         volumes:
-            - /etc/thehand/{CONTAINER_NAME}:/etc/thehand
+            - /etc/thehand/telegram/{CONTAINER_NAME}:/etc/thehand
         restart: always
         networks:
             - telegram_mariadb
