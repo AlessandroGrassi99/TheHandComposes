@@ -15,7 +15,8 @@ services:
             - /etc/thehand/mariadb:/etc/mysql
         restart: always
         networks:
-            - thehandnetback
+            - mariadb_backup
+            - telegram_mariadb
 
     mariadb-backup:
         image: databack/mysql-backup:latest
@@ -31,7 +32,7 @@ services:
             - DB_DUMP_CRON= 0 4 * * * 
         restart: always
         networks:
-            - thehandnetback
+            - mariadb_backup
 
     rabbitmq:
         image: rabbitmq:latest
@@ -43,9 +44,19 @@ services:
             - /etc/thehand/rabbitmq:/etc/rabbitmq
         restart: always
         networks:
-            - thehandnetback
+            - web_rabbitmq
+            - telegram_rabbitmq
 
 networks:
-    thehandnetback:
+    mariadb_backup:
         internal: true
-        name: thehandnetback
+        name: mariadb_backup
+    telegram_mariadb:
+        internal: true
+        name: telegram_mariadb
+    telegram_rabbitmq:
+        internal: true
+        name: telegram_rabbitmq
+    web_rabbitmq:
+        internal: true
+        name: web_rabbitmq

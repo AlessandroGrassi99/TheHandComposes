@@ -6,14 +6,18 @@ services:
         container_name: {CONTAINER_NAME}
         hostname: thehand-container
         volumes:
-            - /etc/thehand/telegram/{CONTAINER_NAME}:/etc/thehand
+            - /etc/thehand/configs/{CONTAINER_NAME}:/etc/thehand
             - /etc/thehand/telegram:/opt/thehand
         restart: always
         networks:
-            - thehandnetback
+            - telegram_mariadb
+            - telegram_rabbitmq
+            - telegram_internet
 
 networks:
     telegram_mariadb:
         external: true
     telegram_rabbitmq:
+        external: true
+    telegram_internet:
         external: true
